@@ -520,7 +520,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1690110152
+--- !u!1 &1593865996
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -528,87 +528,40 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1690110157}
-  - component: {fileID: 1690110156}
-  - component: {fileID: 1690110155}
-  - component: {fileID: 1690110154}
-  - component: {fileID: 1690110153}
-  - component: {fileID: 1690110158}
+  - component: {fileID: 1593865998}
+  - component: {fileID: 1593865997}
+  - component: {fileID: 1593866001}
+  - component: {fileID: 1593866000}
+  - component: {fileID: 1593865999}
   m_Layer: 0
-  m_Name: GameManager
+  m_Name: Manager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1690110153
+--- !u!114 &1593865997
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1690110152}
+  m_GameObject: {fileID: 1593865996}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4c6f9164886750f4cb67b57ec7cecd90, type: 3}
+  m_Script: {fileID: 11500000, guid: fe1b6801949416442b9ef4ea5b7bbd3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _possibleColors: []
-  _minColorValue: 0.2
-  _maxColorValue: 1
---- !u!114 &1690110154
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1690110152}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 137b4ca7609c6314b954e691ff91f96e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _cubePrefab: {fileID: 0}
-  _explosionForce: 10
-  _explosionRadius: 5
-  _spawnOffset: 0.5
---- !u!114 &1690110155
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1690110152}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 867d1113b5dd1ed4f92bc6af827e8715, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _initialCubesCount: 5
-  _initialCubeScale: {x: 1, y: 1, z: 1}
-  _spawnArea: {x: 10, y: 2, z: 10}
-  _showSpawnAreaInEditor: 1
-  _spawnAreaColor: {r: 1, g: 0, b: 0, a: 0.3}
---- !u!114 &1690110156
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1690110152}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 92cfc6bef7a5bcb489f7b77c426c50b6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _cubeController: {fileID: 1690110158}
---- !u!4 &1690110157
+  raycaster: {fileID: 1593866001}
+  spawner: {fileID: 1593866000}
+  exploder: {fileID: 1593865999}
+--- !u!4 &1593865998
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1690110152}
+  m_GameObject: {fileID: 1593865996}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
@@ -617,19 +570,52 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1690110158
+--- !u!114 &1593865999
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1690110152}
-  m_Enabled: 0
+  m_GameObject: {fileID: 1593865996}
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0b5a0cf45e4148040b86259979737f92, type: 3}
+  m_Script: {fileID: 11500000, guid: ecde6c04e21fc674f934928b1a70ff1f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _splitChance: 1
+  explosionForce: 10
+  explosionRadius: 3
+  upwardsModifier: 0.5
+--- !u!114 &1593866000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1593865996}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 227bad9e30f5f6e4a8e73519cfd0c01a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cubePrefab: {fileID: 2430842670344283717, guid: efc74ed09bdecb44cac5de1161a22b2e, type: 3}
+  initialCount: 5
+  spawnArea: {x: 5, y: 1, z: 5}
+--- !u!114 &1593866001
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1593865996}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 652d157cc8bcd82409653d2650b5d65f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cam: {fileID: 963194227}
+  cubeLayerMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
 --- !u!1 &1759150358
 GameObject:
   m_ObjectHideFlags: 0
@@ -747,4 +733,4 @@ SceneRoots:
   - {fileID: 1997299334}
   - {fileID: 9325122}
   - {fileID: 1759150360}
-  - {fileID: 1690110157}
+  - {fileID: 1593865998}
