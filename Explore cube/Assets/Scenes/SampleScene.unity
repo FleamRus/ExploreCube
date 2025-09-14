@@ -597,8 +597,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 227bad9e30f5f6e4a8e73519cfd0c01a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cubePrefab: {fileID: 2430842670344283717, guid: efc74ed09bdecb44cac5de1161a22b2e, type: 3}
+  cubePrefab: {fileID: 8939461040077931878, guid: efc74ed09bdecb44cac5de1161a22b2e, type: 3}
   initialCount: 5
+  spawnRadius: 0.5
   spawnArea: {x: 5, y: 1, z: 5}
 --- !u!114 &1593866001
 MonoBehaviour:
@@ -612,10 +613,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 652d157cc8bcd82409653d2650b5d65f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cam: {fileID: 963194227}
-  cubeLayerMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
 --- !u!1 &1759150358
 GameObject:
   m_ObjectHideFlags: 0

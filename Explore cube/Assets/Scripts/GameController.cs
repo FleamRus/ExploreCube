@@ -12,33 +12,25 @@ public class GameController : MonoBehaviour
         if (raycaster != null)
             raycaster.CubeHit += HandleCubeHit;
     }
-    
+
     private void OnDisable()
     {
         if (raycaster != null)
             raycaster.CubeHit -= HandleCubeHit;
     }
 
-    private void Start()
-    {
-        if (raycaster == null) Debug.LogWarning("GameController: raycaster не назначен");
-        if (spawner == null) Debug.LogWarning("GameController: spawner не назначен");
-        if (exploder == null) Debug.LogWarning("GameController: exploder не назначен");
-    }
-
-    private void HandleCubeHit(CubeCustomizer cube)
+    private void HandleCubeHit(Cube cube)
     {
         if (cube == null) return;
 
-        float chance = cube.SplitChance;
-        float random = Random.value;
-        bool willSplit = random < chance;
-
-        if (willSplit)
+        if (Random.value < cube.SplitChance)
         {
-            List<CubeCustomizer> createdCubes = spawner.SpawnChildren(cube);
-
-            exploder.Explode(cube.transform.position, createdCubes);
+            List<Cube> children = spawner.SpawnChildren(cube);
+            exploder.Explode(cube.transform.position, children);
+        }
+        else
+        {
+            Destroy(cube.gameObject);
         }
     }
 }

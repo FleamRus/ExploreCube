@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class Raycaster : MonoBehaviour
 {
-    public event Action<CubeCustomizer> CubeHit;
+    public event Action<Cube> CubeHit;
 
     private Camera cam;
     private LayerMask cubeLayerMask = ~0;
@@ -29,11 +29,9 @@ public class Raycaster : MonoBehaviour
 
         if (Physics.Raycast(raycast, out RaycastHit hit, maximumDistance, cubeLayerMask))
         {
-            if (hit.collider.TryGetComponent<CubeCustomizer>(out var cubeComponent))
+            if (hit.collider.TryGetComponent<Cube>(out var cubeReferens))
             {
-                CubeHit?.Invoke(cubeComponent);
-
-                cubeComponent.NotifyClicked();
+                CubeHit?.Invoke(cubeReferens);
             }
         }
     }

@@ -8,7 +8,7 @@ public class Exploder : MonoBehaviour
     [SerializeField] private float explosionRadius = 3f;
     [SerializeField] private float upwardsModifier = 0.5f;
 
-    public void Explode(Vector3 center, List<CubeCustomizer> affectedCubes)
+    public void Explode(Vector3 center, List<Cube> affectedCubes)
     {
         if (affectedCubes == null || affectedCubes.Count == 0) return;
 

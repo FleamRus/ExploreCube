@@ -1,18 +1,33 @@
-using System;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
 public class Spawner : MonoBehaviour
 {
-    [Header("Prefab & spawn settings")]
-    [SerializeField] private GameObject cubePrefab;
-    [SerializeField] private int initialCount = 5; 
-    [SerializeField] private Vector3 spawnArea = new(5, 1, 5); 
+    [SerializeField] private Cube cubePrefab;
+    [SerializeField] private int initialCount = 3;
+    [SerializeField] private float spawnRadius = 0.5f;
+    [SerializeField] private Vector3 spawnArea = new(5, 1, 5);
 
-    private List<CubeCustomizer> _trackedCubes = new();
+    private readonly List<Cube> cubes = new();
 
     private void Start()
+    {
+        for (int i = 0; i < initialCount; i++)
+        {
+            float minValueY = 0.5f;
+
+            Vector3 position = transform.position + new Vector3(
+                UnityEngine.Random.Range(-spawnArea.x, spawnArea.x),
+                UnityEngine.Random.Range(minValueY, spawnArea.y + minValueY),
+                UnityEngine.Random.Range(-spawnArea.z, spawnArea.z)
+            );
+
+            SpawnInitial(position);
+        }
+    }
+
+    private void SpawnInitial(Vector3 position)
     {
         if (cubePrefab == null)
         {
@@ -20,89 +35,42 @@ public class Spawner : MonoBehaviour
             return;
         }
 
-        for (int i = 0; i < initialCount; i++)
-        {
-            float minValueY = 0.5f;
+        Cube cube = Instantiate(cubePrefab, position, Quaternion.identity);
 
-            Vector3 positon = transform.position + new Vector3(
-                UnityEngine.Random.Range(-spawnArea.x, spawnArea.x),
-                UnityEngine.Random.Range(minValueY, spawnArea.y + minValueY),
-                UnityEngine.Random.Range(-spawnArea.z, spawnArea.z)
-            );
-
-            SpawnInitial(positon);
-        }
+        cube.SetOriginalScale(cube.transform.localScale);
+        cubes.Add(cube);
     }
 
-    public CubeCustomizer SpawnInitial(Vector3 worldPosition)
+    public List<Cube> SpawnChildren(Cube parent)
     {
-        var cubeReferens = Instantiate(cubePrefab, worldPosition, Quaternion.identity, null);
-
-        if (!cubeReferens.TryGetComponent<CubeCustomizer>(out var cube))
-        {
-            Debug.LogError("cubePrefab не содержит компонента Cube!");
-            Destroy(cubeReferens);
-            return null;
-        }
-
-        cube.Initialize(this, Vector3.one, cube.SplitChance);
-        cube.ApplyRandomColor();
-
-        cube.Clicked += RemoveCube;
-        _trackedCubes.Add(cube);
-        return cube;
-    }
-
-    public List<CubeCustomizer> SpawnChildren(CubeCustomizer originalCube)
-    {
-        int miValue = 2;
-        int maxVavue = 7;
+        int minValueRandom = 2;
+        int maxValueRandom = 7;
         float valueDivider = 0.5f;
 
-        if (originalCube == null) return new List<CubeCustomizer>();
+        List<Cube> created = new();
+        int count = Random.Range(minValueRandom, maxValueRandom);
 
-        int countSpawnCube = UnityEngine.Random.Range(miValue, maxVavue);
+        Vector3 parentScale = parent.transform.localScale;
+        Vector3 childScale = parentScale * valueDivider;
 
-        List<CubeCustomizer> createdCubes = new();
-
-        Vector3 baseScale = originalCube.transform.localScale;
-        Vector3 childScale = baseScale * valueDivider;
-        float childSplitChance = originalCube.SplitChance * valueDivider;
-
-        for (int i = 0; i < countSpawnCube; i++)
+        for (int i = 0; i < count; i++)
         {
-            float spawnRadius = 1.0f;
+            Vector3 pos = parent.transform.position + Random.insideUnitSphere * spawnRadius;
+            Cube child = Instantiate(cubePrefab, pos, Quaternion.identity);
 
-            Vector3 offset = UnityEngine.Random.insideUnitSphere * spawnRadius;
-            Vector3 spawnPos = originalCube.transform.position + offset;
+            child.transform.localScale = childScale;
 
-            var cubeReferens = Instantiate(cubePrefab, spawnPos, UnityEngine.Random.rotation, null);
+            child.SetOriginalScale(child.transform.localScale);
 
-            if (!cubeReferens.TryGetComponent<CubeCustomizer>(out var cube))
-            {
-                Destroy(cubeReferens);
-                continue;
-            }
+            child.SetSplitChance(parent.SplitChance * valueDivider);
 
-            cube.Initialize(this, childScale, childSplitChance);
-            cube.ApplyRandomColor();
-
-            cube.Clicked += RemoveCube;
-            _trackedCubes.Add(cube);
-
-            createdCubes.Add(cube);
+            created.Add(child);
+            cubes.Add(child);
         }
 
-        return createdCubes;
-    }
+        cubes.Remove(parent);
+        Destroy(parent.gameObject);
 
-    private void RemoveCube(CubeCustomizer cube)
-    {
-        if (cube == null) return;
-
-        cube.Clicked -= RemoveCube;
-        _trackedCubes.Remove(cube);
-
-        Destroy(cube.gameObject);
+        return created;
     }
 }
