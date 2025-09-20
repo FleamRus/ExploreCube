@@ -5,17 +5,19 @@ public class Raycaster : MonoBehaviour
 {
     public event Action<Cube> CubeHit;
 
-    private Camera cam;
-    private LayerMask cubeLayerMask = ~0;
+    private Camera _camera;
+    private LayerMask _cubeLayerMask = ~0;
 
     private void Awake()
     {
-        cam = Camera.main;
+        _camera = Camera.main;
     }
 
     private void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        int numberMouseKey = 0;
+
+        if (Input.GetMouseButtonDown(numberMouseKey))
         {
             FireRay();
         }
@@ -25,9 +27,9 @@ public class Raycaster : MonoBehaviour
     {
         float maximumDistance = 100f;
 
-        Ray raycast = cam.ScreenPointToRay(Input.mousePosition);
+        Ray raycast = _camera.ScreenPointToRay(Input.mousePosition);
 
-        if (Physics.Raycast(raycast, out RaycastHit hit, maximumDistance, cubeLayerMask))
+        if (Physics.Raycast(raycast, out RaycastHit hit, maximumDistance, _cubeLayerMask))
         {
             if (hit.collider.TryGetComponent<Cube>(out var cubeReferens))
             {

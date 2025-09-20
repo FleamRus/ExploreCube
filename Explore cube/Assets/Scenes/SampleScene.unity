@@ -552,9 +552,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe1b6801949416442b9ef4ea5b7bbd3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  raycaster: {fileID: 1593866001}
-  spawner: {fileID: 1593866000}
-  exploder: {fileID: 1593865999}
+  _raycaster: {fileID: 1593866001}
+  _spawner: {fileID: 0}
+  _exploder: {fileID: 0}
 --- !u!4 &1593865998
 Transform:
   m_ObjectHideFlags: 0
@@ -582,9 +582,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ecde6c04e21fc674f934928b1a70ff1f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  explosionForce: 10
-  explosionRadius: 3
-  upwardsModifier: 0.5
+  _explosionForce: 200
+  _explosionRadius: 3
+  _upwardsModifier: 0.5
 --- !u!114 &1593866000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -597,10 +597,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 227bad9e30f5f6e4a8e73519cfd0c01a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cubePrefab: {fileID: 8939461040077931878, guid: efc74ed09bdecb44cac5de1161a22b2e, type: 3}
-  initialCount: 5
-  spawnRadius: 0.5
-  spawnArea: {x: 5, y: 1, z: 5}
+  _cubePrefab: {fileID: 0}
+  _initialCount: 3
+  _spawnRadius: 0.5
+  _spawnArea: {x: 5, y: 1, z: 5}
 --- !u!114 &1593866001
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -4,23 +4,23 @@ using UnityEngine;
 
 public class Spawner : MonoBehaviour
 {
-    [SerializeField] private Cube cubePrefab;
-    [SerializeField] private int initialCount = 3;
-    [SerializeField] private float spawnRadius = 0.5f;
-    [SerializeField] private Vector3 spawnArea = new(5, 1, 5);
+    [SerializeField] private Cube _cubePrefab;
+    [SerializeField] private int _initialCount = 3;
+    [SerializeField] private float _spawnRadius = 0.5f;
+    [SerializeField] private Vector3 _spawnArea = new(5, 1, 5);
 
-    private readonly List<Cube> cubes = new();
+    private readonly List<Cube> _cubes = new();
 
     private void Start()
     {
-        for (int i = 0; i < initialCount; i++)
+        for (int i = 0; i < _initialCount; i++)
         {
             float minValueY = 0.5f;
 
             Vector3 position = transform.position + new Vector3(
-                UnityEngine.Random.Range(-spawnArea.x, spawnArea.x),
-                UnityEngine.Random.Range(minValueY, spawnArea.y + minValueY),
-                UnityEngine.Random.Range(-spawnArea.z, spawnArea.z)
+                UnityEngine.Random.Range(-_spawnArea.x, _spawnArea.x),
+                UnityEngine.Random.Range(minValueY, _spawnArea.y + minValueY),
+                UnityEngine.Random.Range(-_spawnArea.z, _spawnArea.z)
             );
 
             SpawnInitial(position);
@@ -29,16 +29,14 @@ public class Spawner : MonoBehaviour
 
     private void SpawnInitial(Vector3 position)
     {
-        if (cubePrefab == null)
-        {
-            Debug.LogError("Spawner: cubePrefab не назначен!");
-            return;
-        }
+        if (_cubePrefab == null)
+                    return;
+        
 
-        Cube cube = Instantiate(cubePrefab, position, Quaternion.identity);
+        Cube cube = Instantiate(_cubePrefab, position, Quaternion.identity);
 
         cube.SetOriginalScale(cube.transform.localScale);
-        cubes.Add(cube);
+        _cubes.Add(cube);
     }
 
     public List<Cube> SpawnChildren(Cube parent)
@@ -55,8 +53,8 @@ public class Spawner : MonoBehaviour
 
         for (int i = 0; i < count; i++)
         {
-            Vector3 pos = parent.transform.position + Random.insideUnitSphere * spawnRadius;
-            Cube child = Instantiate(cubePrefab, pos, Quaternion.identity);
+            Vector3 pos = parent.transform.position + Random.insideUnitSphere * _spawnRadius;
+            Cube child = Instantiate(_cubePrefab, pos, Quaternion.identity);
 
             child.transform.localScale = childScale;
 
@@ -65,10 +63,10 @@ public class Spawner : MonoBehaviour
             child.SetSplitChance(parent.SplitChance * valueDivider);
 
             created.Add(child);
-            cubes.Add(child);
+            _cubes.Add(child);
         }
 
-        cubes.Remove(parent);
+        _cubes.Remove(parent);
         Destroy(parent.gameObject);
 
         return created;
